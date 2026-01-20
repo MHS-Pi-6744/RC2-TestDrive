@@ -26,7 +26,7 @@ import frc.robot.Constants.OIConstants;
 // Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.Vision;
+
 // WpiLib2 stuff
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -46,9 +46,8 @@ import java.util.List;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  //private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
-  private final Vision vision = new Vision(m_robotDrive::addVisionMeasurement);
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -61,7 +60,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Configure default commands
-    m_robotDrive.setDefaultCommand(
+    /*m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
@@ -70,7 +69,7 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true),
-            m_robotDrive));
+            m_robotDrive));*/
   }
 
   /**
@@ -83,10 +82,21 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_driverController.rightBumper().whileTrue(new InstantCommand(() -> m_robotDrive.setX()));
-    m_driverController.rightTrigger().whileTrue(m_intake.runIntakeCommand());
-    m_driverController.leftTrigger().whileTrue(m_intake.runExtakeCommand());
-    m_driverController.start().onTrue(new InstantCommand(() -> m_robotDrive.zeroHeading()));
+    /*m_driverController.rightBumper().whileTrue(new InstantCommand(
+        () -> m_robotDrive.setX()
+    ));*/
+
+    m_driverController.rightTrigger().whileTrue(
+        m_intake.runIntakeCommand()
+    );
+
+    m_driverController.leftTrigger().whileTrue(
+        m_intake.runExtakeCommand()
+    );
+
+    //m_driverController.start().whileTrue(new InstantCommand(
+    //    () -> m_robotDrive.zeroHeading()
+    //));
   }
 
   /**
@@ -94,7 +104,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  /*public Command getAutonomousCommand() {
     // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
         AutoConstants.kMaxSpeedMetersPerSecond,
@@ -116,22 +126,22 @@ public class RobotContainer {
         AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        m_robotDrive::getPose, // Functional interface to feed supplier
-        DriveConstants.kDriveKinematics,
+    //SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+        //exampleTrajectory,
+        //m_robotDrive::getPose, // Functional interface to feed supplier
+        //DriveConstants.kDriveKinematics,
 
         // Position controllers
-        new PIDController(AutoConstants.kPXController, 0, 0),
-        new PIDController(AutoConstants.kPYController, 0, 0),
-        thetaController,
-        m_robotDrive::setModuleStates,
-        m_robotDrive);
+        //new PIDController(AutoConstants.kPXController, 0, 0),
+        //new PIDController(AutoConstants.kPYController, 0, 0),
+        //thetaController,
+        //m_robotDrive::setModuleStates,
+        //m_robotDrive);
 
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    //m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
-  }
+    //return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+  }*/
 }

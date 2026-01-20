@@ -19,6 +19,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -224,7 +226,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return {@link Rotation2d} that has the gyro yaw
    */
   public Rotation2d getGyroYaw() {
-    return Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kYaw));
+  return m_gyro.getRotation2d();
   }
 
   /**

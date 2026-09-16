@@ -63,6 +63,7 @@ hs_err_pid*
 ### Linux ###
 *~
 
+# Nix Builds
 result
 
 # temporary files which can be created if a process still has a handle open of a deleted file

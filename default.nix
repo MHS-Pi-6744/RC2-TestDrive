@@ -22,4 +22,5 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   gradleBuildTask = "jar";
+  gradleUpdateTask = "dependencies";
 })

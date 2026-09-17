@@ -21,6 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
     data = ./deps.json;
   };
 
-  gradleBuildTask = "jar";
+  gradleFlags = [
+    # "--offline"
+    "--info"
+  ];
+
+  gradleBuildTask = "build";
   gradleUpdateTask = "dependencies";
 })

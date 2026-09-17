@@ -63,8 +63,9 @@ hs_err_pid*
 ### Linux ###
 *~
 
-# Nix Builds
+# Nix Builds/Shell
 result
+.direnv/
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
@@ -141,6 +142,8 @@ $RECYCLE.BIN/
 ### Gradle ###
 .gradle
 /build/
+# Handle if the build folder is a symlink
+/build
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -188,4 +191,3 @@ compile_commands.json
 
 # Eclipse generated file for annotation processors
 .factorypath
-.direnv/

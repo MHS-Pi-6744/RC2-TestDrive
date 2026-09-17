@@ -27,7 +27,10 @@ buildGradlePackage {
     "--offline"
   ];
   gradleBuildFlags = [ "build" ];
-  gradleInstallFlags = [ "deploy" ];
-  # nix can have an output as a treat
-  postInstall = "touch $out";
+  # it is impossible to deploy to roborio because of nix's sandboxing
+  # gradleInstallFlags = [ "deploy" ];
+  postInstall = ''
+    ls
+    cp -R build/ $out/
+  '';
 }

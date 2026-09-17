@@ -32,7 +32,9 @@
           pkgs = import nixpkgs { system = "${system}"; };
         in
         {
-          default = pkgs.mkShellNoCC { packages = with pkgs; [ ]; };
+          default = pkgs.mkShellNoCC { packages = with pkgs; [
+            jdk17
+          ]; };
         }
       );
     };

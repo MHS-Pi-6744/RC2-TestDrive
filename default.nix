@@ -1,31 +1,33 @@
-# /*
 {
-  stdenv,
   gradle,
-  makeWrapper,
+  buildGradlePackage,
+  gradleSetupHook,
+  # metadata info
+  year ? 2025,
+  game ? "Offseason",
+  robot ? "Unknown",
   ...
 }:
-# */
-stdenv.mkDerivation (finalAttrs: {
-  pname = "robot";
-  version = "2026";
+
+let
+  # year - 2024 = what number should be put at the end of RC. (ex: year = 2026 -> RC2)
+  pname = "RC${toString (year - 2024)}-${game}";
+  version = robot;
+in
+buildGradlePackage {
+  inherit gradle version pname;
   src = ./.;
+  lockFile = ./gradle.lock;
 
   nativeBuildInputs = [
-    gradle
-    makeWrapper
+    gradleSetupHook
   ];
-
-  mitmCache = gradle.fetchDeps {
-    pkg = finalAttrs.finalPackage;
-    data = ./deps.json;
-  };
 
   gradleFlags = [
-    # "--offline"
-    "--info"
+    "--offline"
   ];
-
-  gradleBuildTask = "build";
-  gradleUpdateTask = "dependencies";
-})
+  gradleBuildFlags = [ "build" ];
+  gradleInstallFlags = [ "deploy" ];
+  # nix can have an output as a treat
+  postInstall = "touch $out";
+}
